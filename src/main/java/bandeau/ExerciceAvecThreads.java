@@ -1,8 +1,5 @@
 package bandeau;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 public class ExerciceAvecThreads {
 
     public static void main(String[] args) {
@@ -17,27 +14,24 @@ public class ExerciceAvecThreads {
         var b1 = new Bandeau();
         var b2 = new Bandeau();
         var b3 = new Bandeau();
-        // On cree les verrous
-        Lock VB1 = new ReentrantLock();
-        Lock VB2 = new ReentrantLock();
-        Lock VB3 = new ReentrantLock();
+
         System.out.println("CTRL-C pour terminer le programme");
         // On doit jouer le scénario en même temps sur les trois bandeaux
         // On crée un thread pour chaque bandeau
 
         Thread thread1 = new Thread(
                 () -> {
-                    s.playOn(b1, VB1);
+                    s.playOn(b1);
                 });
 
         Thread thread2 = new Thread(
                 () -> {
-                    s.playOn(b2, VB2);
+                    s.playOn(b2);
                 });
 
         Thread thread3 = new Thread(
                 () -> {
-                    s.playOn(b3, VB3);
+                    s.playOn(b3);
                 });
 
         thread1.start();
@@ -52,7 +46,7 @@ public class ExerciceAvecThreads {
             e.printStackTrace();
         }
         // On rejoue le scénario sur b1 quand le premier jeu est fini
-        s.playOn(b1, VB1);
+        s.playOn(b1);
     }
 
     private Scenario makeScenario() {

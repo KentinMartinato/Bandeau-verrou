@@ -1,8 +1,5 @@
 package bandeau;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 public class ExampleScenario {
 
     /**
@@ -39,12 +36,10 @@ public class ExampleScenario {
         s.addEffect(new Rotate("2 tours à gauche", 180, 4000, false), 2);
         // On cree le bandeau
         Bandeau b = new Bandeau();
-        // On cree le verrou
-        Lock VB = new ReentrantLock();
         b.setMessage(message);
         b.sleep(2000);
         // On joue le scenario sur le bandeau
-        s.playOn(b, VB);
+        s.playOn(b);
         b.close();
     }
 
