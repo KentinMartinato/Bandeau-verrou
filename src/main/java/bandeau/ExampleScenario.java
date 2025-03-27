@@ -1,11 +1,15 @@
 package bandeau;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class ExampleScenario {
 
     /**
      * "Programme principal" : point d'entrée d'exécution
      *
-     * @param args les "arguments de ligne de commande", transmis au lancement du programme
+     * @param args les "arguments de ligne de commande", transmis au lancement du
+     *             programme
      */
     public static void main(String[] args) {
         String message;
@@ -24,7 +28,7 @@ public class ExampleScenario {
         // On cree un scenario
         Scenario s = new Scenario();
         // On lui ajoute des effets
-        //s.addEffect(new FontEnumerator(10), 1);
+        // s.addEffect(new FontEnumerator(10), 1);
         s.addEffect(new RandomEffect("Le jeu du pendu", 700), 1);
         s.addEffect(new TeleType("Je m'affiche caractère par caractère", 100), 1);
         s.addEffect(new Blink("Je clignote 10x", 100), 10);
@@ -35,10 +39,12 @@ public class ExampleScenario {
         s.addEffect(new Rotate("2 tours à gauche", 180, 4000, false), 2);
         // On cree le bandeau
         Bandeau b = new Bandeau();
+        // On cree le verrou
+        Lock VB = new ReentrantLock();
         b.setMessage(message);
         b.sleep(2000);
         // On joue le scenario sur le bandeau
-        s.playOn(b);
+        s.playOn(b, VB);
         b.close();
     }
 
